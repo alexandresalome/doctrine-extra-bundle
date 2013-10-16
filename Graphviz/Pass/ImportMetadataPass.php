@@ -39,6 +39,7 @@ class ImportMetadataPass
                         break;
                     case ClassMetadataInfo::MANY_TO_MANY:
                         $type = 'many_to_many';
+                        break;
                     default:
                         throw new \RuntimeException('Unkown association type '.$mapping['type']);
                 }
