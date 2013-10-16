@@ -3,7 +3,7 @@ DoctrineExtraBundle
 
 Graph tool for Doctrine. Relies on `Graphviz <http://www.graphviz.org/>`_.
 
-.. images:: Resources/demo.png
+.. image:: Resources/demo.png
 
 Usage
 -----
