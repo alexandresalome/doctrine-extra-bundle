@@ -13,7 +13,7 @@ use Alex\DoctrineExtraBundle\Graphviz\DoctrineMetadataGraph;
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class GraphvizMappingCommand extends ContainerAwareCommand
+class DoctrineMetadataGraphvizCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
