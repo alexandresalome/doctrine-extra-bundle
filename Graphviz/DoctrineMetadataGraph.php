@@ -81,7 +81,7 @@ class DoctrineMetadataGraph extends Digraph
 
     private function getEntityLabel($class, $entity)
     {
-
+        $class = str_replace('\\', '\\\\', $class); // needed because of type "record"
         $result = '{{<__class__> '.$class.'|';
 
         foreach ($entity['associations'] as $name => $val) {
