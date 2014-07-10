@@ -85,11 +85,11 @@ class DoctrineMetadataGraph extends Digraph
         $result = '{{<__class__> '.$class.'|';
 
         foreach ($entity['associations'] as $name => $val) {
-            $result .= '<'.$name.'> '.$name.' : '.$val.'\l|';
+            $result .= '<'.$name.'> '.$name.' : '.$val."\n|";
         }
 
         foreach ($entity['fields'] as $name => $val) {
-            $result .= $name.' : '.$val.'\l';
+            $result .= $name.' : '.$val."\n";
         }
 
         $result .= '}}';
