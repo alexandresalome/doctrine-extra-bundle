@@ -7,6 +7,15 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class ImportMetadataPass
 {
+    private $options = array();
+
+    public function __construct(array $options = array())
+    {
+        $this->options = array_merge(array(
+            'no-fields' => false,
+        ), $options);
+    }
+
     public function process(ClassMetadataFactory $factory, $data)
     {
         foreach ($factory->getAllMetadata() as $classMetadata) {
@@ -17,8 +26,10 @@ class ImportMetadataPass
                 'fields'       => array(),
             );
 
-            foreach ($classMetadata->fieldMappings as $name => $config) {
-                $data['entities'][$class]['fields'][$name] = $config['type'];
+            if (!$this->options['no-fields']) {
+                foreach ($classMetadata->fieldMappings as $name => $config) {
+                    $data['entities'][$class]['fields'][$name] = $config['type'];
+                }
             }
 
             // associations

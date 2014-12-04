@@ -14,9 +14,15 @@ use Alom\Graphviz\Digraph;
 
 class DoctrineMetadataGraph extends Digraph
 {
-    public function __construct(ObjectManager $manager)
+    private $options = array();
+
+    public function __construct(ObjectManager $manager, $options = array())
     {
         parent::__construct('G');
+
+        $this->options = array_merge(array(
+            'no-fields' => false,
+        ), $options);
 
         $this->attr('node', array(
             'shape' => 'record'
@@ -67,7 +73,7 @@ class DoctrineMetadataGraph extends Digraph
     {
         $data = array('entities' => array(), 'relations' => array());
         $passes = array(
-            new ImportMetadataPass(),
+            new ImportMetadataPass(array('no-fields' => $this->options['no-fields'])),
             new InheritancePass(),
             new ShortNamePass()
         );
