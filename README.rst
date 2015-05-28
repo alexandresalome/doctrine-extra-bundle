@@ -5,6 +5,15 @@ Graph tool for Doctrine. Relies on `Graphviz <http://www.graphviz.org/>`_.
 
 .. image:: Resources/demo.png
 
+Installation
+-----------
+Install the latest version with
+
+.. code-block:: bash
+
+    $ composer require alexandresalome/doctrine-extra-bundle
+
+
 Usage
 -----
 
