@@ -13,6 +13,28 @@ Install the latest version with
 
     $ composer require alexandresalome/doctrine-extra-bundle
 
+Then, enable the bundle by adding the following line in the ``app/AppKernel.php``
+file of your project:
+
+.. code-block:: php
+
+    // app/AppKernel.php
+
+    class AppKernel extends Kernel
+    {
+        public function registerBundles()
+        {
+            $bundles = array(
+                // ...
+
+                new Alex\DoctrineExtraBundle\AlexDoctrineExtraBundle(),
+            );
+
+            // ...
+        }
+
+        // ...
+    }
 
 Usage
 -----
