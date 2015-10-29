@@ -85,11 +85,11 @@ class DoctrineMetadataGraph extends Digraph
         $result = '{{<__class__> '.$class.'|';
 
         foreach ($entity['associations'] as $name => $val) {
-            $result .= '<'.$name.'> '.$name.' : '.$val.'\l|';
+            $result .= '<'.$name.'> '.$name.' : '.$val.PHP_EOL.'|';
         }
 
         foreach ($entity['fields'] as $name => $val) {
-            $result .= $name.' : '.$val.'\l';
+            $result .= $name.' : '.$val."\n";
         }
 
         $result .= '}}';
@@ -99,12 +99,9 @@ class DoctrineMetadataGraph extends Digraph
 
     private function getCluster($entityName)
     {
-        $exp = explode(':', $entityName);
+        $exp = preg_split('/\\\\|:/', $entityName);
+        $name = array_pop($exp);
 
-        if (count($exp) !== 2) {
-            throw new \OutOfBoundsException(sprintf('Unexpected count of ":" in entity name. Expected one ("AcmeDemoBundle:User"), got %s ("%s").', count($exp), $entityName));
-        }
-
-        return $exp[0];
+        return implode('_', $exp);
     }
 }
