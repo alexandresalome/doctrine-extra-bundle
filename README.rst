@@ -11,7 +11,7 @@ Install the latest version with
 
 .. code-block:: bash
 
-    $ composer require alexandresalome/doctrine-extra-bundle
+    $ composer require --dev alexandresalome/doctrine-extra-bundle
 
 Then, enable the bundle by adding the following line in the ``app/AppKernel.php``
 file of your project:
@@ -24,11 +24,13 @@ file of your project:
     {
         public function registerBundles()
         {
-            $bundles = array(
+            //...
+            if (in_array($this->getEnvironment(), ['dev', 'test'])) {
                 // ...
+                // Because the vendor code could be not present, you should check if the bundle is here before using it.
+                $bundles[] = new Alex\DoctrineExtraBundle\AlexDoctrineExtraBundle();
+            }
 
-                new Alex\DoctrineExtraBundle\AlexDoctrineExtraBundle(),
-            );
 
             // ...
         }
