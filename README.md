@@ -58,3 +58,14 @@ If you want to create a PDF file out of it, with Linux:
 php app/console doctrine:mapping:graphviz | dot -Tpdf -oout.pdf
 xdg-open out.pdf
 ```
+
+## Development
+
+### Generate sample graphs
+
+A set of sample entities are available to test internally the schema generations. You can generate the graph for any of the samples (located in Resources/samples) by running:
+
+```bash
+./Resources/bin/graph simple | dot -Tpdf -oout.pdf
+xdg-open out.pdf
+```

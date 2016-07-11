@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+use Alex\DoctrineExtraBundle\Graphviz\DoctrineMetadataGraph;
+use Alex\DoctrineExtraBundle\Tests\Sample;
+
+require __DIR__.'/../../vendor/autoload.php';
+
+if (count($argv) !== 2) {
+    echo "Usage:\n";
+    echo "  ".$argv[0]." simple\n";
+    die(1);
+}
+
+$em = Sample::getEntityManager($argv[1]);
+
+$graph = new DoctrineMetadataGraph($em);
+echo $graph->render();
