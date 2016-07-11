@@ -2,8 +2,6 @@
 
 namespace Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @Entity
  */
@@ -15,6 +13,11 @@ class User
      * @GeneratedValue
      */
     private $id;
+
+    /**
+     * @OneToMany(targetEntity="Folder", mappedBy="user")
+     */
+    private $folders;
 
     /**
      * @Column(type="string", length=32)

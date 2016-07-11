@@ -19,8 +19,17 @@ class DoctrineMetadataGraphTest extends \PHPUnit_Framework_TestCase
         $userNode = $graph->get('cluster_Entity')->get('Entity\User');
 
         $label = $userNode->getAttributes()->get('label');
-
         $this->assertContains('<__class__> Entity\User', $label);
         $this->assertContains('<username> username : string', $label);
+
+        $folderNode = $graph->get('cluster_Entity')->get('Entity\Folder');
+
+        $label = $folderNode->getAttributes()->get('label');
+        $this->assertContains('<__class__> Entity\Folder', $label);
+        $this->assertContains('<files> files : Entity\File[]', $label);
+        $this->assertContains('<user> user : Entity\User', $label);
+
+        $this->assertTrue($graph->hasEdge(array(array('Entity\User', 'folders'), array('Entity\Folder', '__class__'))));
+        $this->assertTrue($graph->hasEdge(array(array('Entity\Folder', 'user'), array('Entity\User', '__class__'))));
     }
 }
