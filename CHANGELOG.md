@@ -1,5 +1,9 @@
 # CHANGLOG
 
+## 0.3.0 (under development)
+
+* [bug] Fix alignment of properties and associations (Alexandre Salomé)
+
 ## 0.2.2 (14/06/2016)
 
 * [bug] #13 - Changed entity display ("\n" in fields list does't work anymore) (Grégoire Marchal)

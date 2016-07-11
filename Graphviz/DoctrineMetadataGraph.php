@@ -43,7 +43,10 @@ class DoctrineMetadataGraph extends Digraph
             }
 
             $label = $this->getEntityLabel($class, $entity);
-            $clusters[$clusterName]->node($class, array('label' => $label));
+            $clusters[$clusterName]->node($class, array(
+                'label' => '"'.$label.'"',
+                '_escaped' => false
+            ));
         }
 
         foreach ($data['relations'] as $association) {
@@ -81,14 +84,19 @@ class DoctrineMetadataGraph extends Digraph
 
     private function getEntityLabel($class, $entity)
     {
-        $result = '{{<__class__> '.$class;
+        // Beware that this value will not be escaped, so every special character must be escaped
 
-        foreach ($entity['fields'] as $name => $val) {
-            $result .= '| <'.$name.'> '.$name.' : '.$val." ";
-        }
+        $escClass = str_replace("\\", "\\\\", $class);
+        $result = '{{<__class__> '.$escClass.'|';
 
         foreach ($entity['associations'] as $name => $val) {
-            $result .= '| <'.$name.'> '.$name.' : '.$val." ";
+            $escVal = str_replace("\\", "\\\\", $val);
+            $result .= '<'.$name.'> '.$name.' : '.$escVal." \\l|";
+        }
+
+        foreach ($entity['fields'] as $name => $val) {
+            $escVal = str_replace("\\", "\\\\", $val);
+            $result .= $name.' : '.$escVal." \\l";
         }
 
         $result .= '}}';
