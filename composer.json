@@ -13,6 +13,6 @@
 
     "require": {
         "doctrine/orm": "~2.3",
-        "alom/graphviz": "dev-master"
+        "alom/graphviz": "~1.1"
     }
 }
