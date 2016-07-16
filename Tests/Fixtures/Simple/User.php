@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace Alex\DoctrineExtraBundle\Tests\Fixtures\Simple;
 
 /**
  * @Entity

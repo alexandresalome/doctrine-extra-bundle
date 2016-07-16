@@ -9,7 +9,7 @@ class Sample
 {
     public static function getEntityManager($sample)
     {
-        $dir = __DIR__.'/../Resources/samples/'.$sample.'/Entity';
+        $dir = __DIR__.'/Fixtures/'.$sample;
         $config = Setup::createAnnotationMetadataConfiguration(array($dir), true);
 
         $conn = array(

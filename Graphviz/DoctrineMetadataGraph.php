@@ -28,10 +28,11 @@ class DoctrineMetadataGraph extends Digraph
         $clusters = array();
 
         foreach ($data['entities'] as $class => $entity) {
-            $clusterName = $this->getCluster($class);
-            if (!isset($clusters[$clusterName])) {
-                $clusters[$clusterName] = $this->subgraph('cluster_'.$clusterName)
-                    ->set('label', $clusterName)
+            list($cluster, $label) = $this->splitClass($class);
+            if (!isset($clusters[$cluster])) {
+                $escaped = str_replace("\\", "_", $cluster);
+                $clusters[$cluster] = $this->subgraph('cluster_'.$escaped)
+                    ->set('label', $cluster)
                     ->set('style', 'filled')
                     ->set('color', '#eeeeee')
                     ->attr('node', array(
@@ -42,8 +43,8 @@ class DoctrineMetadataGraph extends Digraph
                 ;
             }
 
-            $label = $this->getEntityLabel($class, $entity);
-            $clusters[$clusterName]->node($class, array(
+            $label = $this->getEntityLabel($label, $entity);
+            $clusters[$cluster]->node($class, array(
                 'label' => '"'.$label.'"',
                 '_escaped' => false
             ));
@@ -72,7 +73,6 @@ class DoctrineMetadataGraph extends Digraph
         $passes = array(
             new ImportMetadataPass(),
             new InheritancePass(),
-            new ShortNamePass()
         );
 
         foreach ($passes as $pass) {
@@ -86,10 +86,10 @@ class DoctrineMetadataGraph extends Digraph
     {
         // Beware that this value will not be escaped, so every special character must be escaped
 
-        $escClass = str_replace("\\", "\\\\", $class);
-        $result = '{{<__class__> '.$escClass.'|';
+        $result = '{{<__class__> '.$class.'|';
 
         foreach ($entity['associations'] as $name => $val) {
+            list($ignored, $val) = $this->splitClass($val);
             $escVal = str_replace("\\", "\\\\", $val);
             $result .= '<'.$name.'> '.$name.' : '.$escVal." \\l|";
         }
@@ -104,11 +104,16 @@ class DoctrineMetadataGraph extends Digraph
         return $result;
     }
 
-    private function getCluster($entityName)
+    private function splitClass($entityName)
     {
-        $exp = preg_split('/\\\\|:/', $entityName);
-        $name = array_pop($exp);
+        $pos = strrpos($entityName, "\\");
+        if ($pos === false) {
+            return array('', $entityName);
+        }
 
-        return implode('_', $exp);
+        return array(
+            substr($entityName, 0, $pos),
+            substr($entityName, $pos + 1)
+        );
     }
 }

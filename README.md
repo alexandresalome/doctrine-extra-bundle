@@ -63,9 +63,9 @@ xdg-open out.pdf
 
 ### Generate sample graphs
 
-A set of sample entities are available to test internally the schema generations. You can generate the graph for any of the samples (located in Resources/samples) by running:
+A set of sample entities are available to test internally the schema generations. You can generate the graph for any of the samples (located in Tests/Fixtures) by running:
 
 ```bash
-./Resources/bin/graph simple | dot -Tpdf -oout.pdf
+./Resources/bin/graph Simple | dot -Tpdf -oout.pdf
 xdg-open out.pdf
 ```

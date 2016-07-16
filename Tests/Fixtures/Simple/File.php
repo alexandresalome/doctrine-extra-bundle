@@ -1,11 +1,11 @@
 <?php
 
-namespace Entity;
+namespace Alex\DoctrineExtraBundle\Tests\Fixtures\Simple;
 
 /**
  * @Entity
  */
-class Folder
+class File
 {
     /**
      * @Id
@@ -15,16 +15,10 @@ class Folder
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="User", inversedBy="folders")
+     * @ManyToOne(targetEntity="Folder", inversedBy="files")
      * @JoinColumn
      */
-    private $user;
-
-    /**
-     * @OneToMany(targetEntity="File", mappedBy="folder")
-     * @JoinColumn
-     */
-    private $files;
+    private $folder;
 
     /**
      * @Column(type="string", length=32)
