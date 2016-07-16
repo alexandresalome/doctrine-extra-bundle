@@ -1,6 +1,6 @@
 # CHANGLOG
 
-## 0.3.0 (under development)
+## 0.3.0 (16/07/2016)
 
 * [bug] Fix alignment of properties and associations (Alexandre Salomé)
 
