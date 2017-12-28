@@ -14,7 +14,7 @@ use Alom\Graphviz\Digraph;
 
 class DoctrineMetadataGraph extends Digraph
 {
-    public function __construct(ObjectManager $manager)
+    public function __construct(ObjectManager $manager, array $options)
     {
         parent::__construct('G');
 
@@ -23,7 +23,7 @@ class DoctrineMetadataGraph extends Digraph
         ));
         $this->set('rankdir', 'LR');
 
-        $data = $this->createData($manager);
+        $data = $this->createData($manager, $options);
 
         $clusters = array();
 
@@ -67,11 +67,11 @@ class DoctrineMetadataGraph extends Digraph
         }
     }
 
-    private function createData(ObjectManager $manager)
+    private function createData(ObjectManager $manager, array $options)
     {
         $data = array('entities' => array(), 'relations' => array());
         $passes = array(
-            new ImportMetadataPass(),
+            new ImportMetadataPass($options['includeReverseEdges']),
             new InheritancePass(),
         );
 
