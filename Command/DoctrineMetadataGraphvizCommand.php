@@ -4,6 +4,7 @@ namespace Alex\DoctrineExtraBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Alex\DoctrineExtraBundle\Graphviz\DoctrineMetadataGraph;
@@ -22,6 +23,12 @@ class DoctrineMetadataGraphvizCommand extends ContainerAwareCommand
     {
         $this
             ->setName('doctrine:mapping:graphviz')
+            ->addOption(
+              'no-reverse',
+              null,
+              InputOption::VALUE_NONE,
+              'Do not output "reverse" associations'
+            )
         ;
     }
 
@@ -31,7 +38,9 @@ class DoctrineMetadataGraphvizCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $graph = new DoctrineMetadataGraph($em);
+        $graph = new DoctrineMetadataGraph($em, array(
+          'includeReverseEdges' => !$input->hasOption('no-reverse'),
+        ));
 
         $output->writeln($graph->render());
     }

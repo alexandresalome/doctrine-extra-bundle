@@ -7,6 +7,13 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class ImportMetadataPass
 {
+    private $includeReverseEdges;
+
+    public function __construct($includeReverseEdges = true)
+    {
+        $this->includeReverseEdges = $includeReverseEdges;
+    }
+
     public function process(ClassMetadataFactory $factory, $data)
     {
         foreach ($factory->getAllMetadata() as $classMetadata) {
@@ -25,6 +32,12 @@ class ImportMetadataPass
             foreach ($classMetadata->getAssociationMappings() as $name => $mapping) {
                 $field = $mapping['fieldName'];
                 $targetEntity = $mapping['targetEntity'];
+
+                // skip reverse relationships if we are asked to.
+                // reverse relationships are recognized by their 'mappedBy' property.
+                if (!$this->includeReverseEdges && !empty($mapping['mappedBy'])) {
+                    continue;
+                }
 
                 $type = '';
                 switch ($mapping['type']) {
