@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
   <services>
     <service id="alex_doctrine_extra.graphviz_command" class="Alex\DoctrineExtraBundle\Command\DoctrineMetadataGraphvizCommand">
+      <argument type="service" id="doctrine" />
       <tag name="console.command" command="doctrine:mapping:graphviz" />
     </service>
   </services>

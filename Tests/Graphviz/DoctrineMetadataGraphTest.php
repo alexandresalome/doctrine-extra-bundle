@@ -7,8 +7,9 @@ use Alex\DoctrineExtraBundle\Tests\AbstractTest;
 use Alex\DoctrineExtraBundle\Tests\Sample;
 use Alom\Graphviz\Node;
 use Alom\Graphviz\Subgraph;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineMetadataGraphTest extends \PHPUnit_Framework_TestCase
+class DoctrineMetadataGraphTest extends TestCase
 {
     public function testSimple()
     {
