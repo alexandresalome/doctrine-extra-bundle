@@ -2,7 +2,8 @@
 
 namespace Alex\DoctrineExtraBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,8 +15,20 @@ use Alex\DoctrineExtraBundle\Graphviz\DoctrineMetadataGraph;
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class DoctrineMetadataGraphvizCommand extends ContainerAwareCommand
+class DoctrineMetadataGraphvizCommand extends Command
 {
+    /**
+     * @var ManagerRegistry
+     */
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        parent::__construct();
+
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -37,11 +50,13 @@ class DoctrineMetadataGraphvizCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->doctrine->getManager();
         $graph = new DoctrineMetadataGraph($em, array(
           'includeReverseEdges' => !$input->hasOption('no-reverse'),
         ));
 
         $output->writeln($graph->render());
+
+        return 0;
     }
 }
