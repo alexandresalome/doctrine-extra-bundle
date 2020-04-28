@@ -12,10 +12,10 @@
     "target-dir": "Alex/DoctrineExtraBundle",
 
     "require": {
-        "doctrine/orm": "~2.3",
+        "doctrine/orm": "^2.7.0",
         "alom/graphviz": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^7.5 || ^8.5"
     }
 }
