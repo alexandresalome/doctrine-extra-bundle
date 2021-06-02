@@ -3,8 +3,8 @@
 namespace Alex\DoctrineExtraBundle\Graphviz;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\Mapping\ClassMetadata;
+use Doctrine\Persistence\ObjectManager;
 
 use Alex\DoctrineExtraBundle\Graphviz\Pass\ImportMetadataPass;
 use Alex\DoctrineExtraBundle\Graphviz\Pass\InheritancePass;
