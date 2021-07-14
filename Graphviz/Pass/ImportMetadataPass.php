@@ -2,7 +2,7 @@
 
 namespace Alex\DoctrineExtraBundle\Graphviz\Pass;
 
-use Doctrine\Common\Persistence\Mapping\ClassMetadataFactory;
+use Doctrine\ORM\Mapping\ClassMetadataFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
 class ImportMetadataPass

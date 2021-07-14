@@ -26,17 +26,17 @@ class DoctrineMetadataGraphTest extends TestCase
         $this->assertInstanceOf('Alom\Graphviz\RawText', $label);
         $label = $label->getText();
 
-        $this->assertContains('<__class__> User', $label);
-        $this->assertContains('username : string', $label);
+        $this->assertStringContainsString('<__class__> User', $label);
+        $this->assertStringContainsString('username : string', $label);
 
         $folderNode = $graph->get($simpleId)->get($folderId);
         $label = $folderNode->getAttributes()->get('label');
         $this->assertInstanceOf('Alom\Graphviz\RawText', $label);
         $label = $label->getText();
 
-        $this->assertContains('<__class__> Folder', $label);
-        $this->assertContains('<files> files : File[]', $label);
-        $this->assertContains('<user> user : User', $label);
+        $this->assertStringContainsString('<__class__> Folder', $label);
+        $this->assertStringContainsString('<files> files : File[]', $label);
+        $this->assertStringContainsString('<user> user : User', $label);
 
         $this->assertTrue($graph->hasEdge(array(array($userId, 'folders'), array($folderId, '__class__'))));
         $this->assertTrue($graph->hasEdge(array(array($folderId, 'user'), array($userId, '__class__'))));
