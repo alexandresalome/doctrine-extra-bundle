@@ -4,7 +4,7 @@ namespace Alex\DoctrineExtraBundle\Graphviz;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 
 use Alex\DoctrineExtraBundle\Graphviz\Pass\ImportMetadataPass;
 use Alex\DoctrineExtraBundle\Graphviz\Pass\InheritancePass;
@@ -14,7 +14,7 @@ use Alom\Graphviz\Digraph;
 
 class DoctrineMetadataGraph extends Digraph
 {
-    public function __construct(ObjectManager $manager, array $options = array())
+    public function __construct(EntityManager $manager, array $options = array())
     {
         parent::__construct('G');
 
@@ -72,7 +72,7 @@ class DoctrineMetadataGraph extends Digraph
         }
     }
 
-    private function createData(ObjectManager $manager, array $options)
+    private function createData(EntityManager $manager, array $options)
     {
         $data = array('entities' => array(), 'relations' => array());
         $passes = array(
